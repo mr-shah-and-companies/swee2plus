@@ -428,7 +428,7 @@ export default function Home() {
 									Mr SHAH and COMPANYES
 								</p>
 								<p>Shree Sai Apartment, Shop No. G-1/2,</p>
-								<p>Chikuwadi, Navi Nagri, Mandha,</p>
+								<p>Chikuwadi, Navi Nagri, Namdha,</p>
 								<p>Vapi, Gujarat-396191</p>
 								<p className="mt-4">India</p>
 							</div>
