@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
 	const products = [
@@ -442,18 +443,24 @@ export default function Home() {
 								© 2025 Swee-2+ by Mr SHAH and COMPANYES. All rights reserved.
 							</p>
 							<div className="flex gap-6">
-								<a
-									href="#"
+								<Link
+									href="/contact-us"
 									className="text-gray-500 hover:text-[var(--accent-gold)] transition-colors text-sm"
 								>
-									Privacy Policy
-								</a>
-								<a
-									href="#"
+									Contact Us
+								</Link>
+								<Link
+									href="/terms-and-conditions"
 									className="text-gray-500 hover:text-[var(--accent-gold)] transition-colors text-sm"
 								>
-									Terms of Service
-								</a>
+									Terms &amp; Conditions
+								</Link>
+								<Link
+									href="/refund-policy"
+									className="text-gray-500 hover:text-[var(--accent-gold)] transition-colors text-sm"
+								>
+									Refund Policy
+								</Link>
 							</div>
 						</div>
 					</div>
