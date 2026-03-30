@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "extract-labels": "npx --yes tsx scripts/extract-labels.ts",
+    "extract-labels:py": "python scripts/extract_labels.py",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -15,9 +16,10 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-	title: "Swee-2+ | Premium Cosmetics - Launching 2026",
+	metadataBase: new URL(getSiteUrl()),
+	title: "Swee-2+ | Premium Cosmetics",
 	description:
-		"Discover Swee-2+, a premium cosmetics brand by Mr SHAH and COMPANYES. Launching in 2026 with a complete range of beauty products.",
+		"Discover Swee-2+, a premium cosmetics brand by Mr SHAH and COMPANYES—a complete range of beauty and personal care products.",
 	keywords:
 		"cosmetics, beauty, skincare, makeup, Swee-2+, premium beauty, luxury cosmetics",
 };

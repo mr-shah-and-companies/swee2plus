@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <rect width="800" height="1000" fill="#faf8f5"/>
+  <ellipse cx="400" cy="920" rx="220" ry="28" fill="#e8d5d0" opacity="0.5"/>
+  <rect x="260" y="220" width="280" height="520" rx="140" fill="#f5ebe0" stroke="#6b2d3a" stroke-width="4"/>
+  <ellipse cx="400" cy="260" rx="120" ry="40" fill="#c9a59d" stroke="#6b2d3a" stroke-width="3"/>
+  <rect x="360" y="120" width="80" height="100" rx="16" fill="#6b2d3a"/>
+  <circle cx="400" cy="520" r="120" stroke="#d4a853" stroke-width="2" opacity="0.35" fill="none"/>
+  <text x="400" y="860" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#6b2d3a">SWEE2+</text>
+</svg>

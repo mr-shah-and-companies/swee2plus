@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" fill="none">
+  <rect width="800" height="1000" fill="#faf8f5"/>
+  <defs>
+    <linearGradient id="g" x1="200" y1="300" x2="600" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f5ebe0"/>
+      <stop offset="1" stop-color="#e8d5d0"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="400" cy="920" rx="220" ry="28" fill="#e8d5d0" opacity="0.45"/>
+  <circle cx="400" cy="480" r="220" fill="url(#g)" stroke="#6b2d3a" stroke-width="4"/>
+  <circle cx="400" cy="480" r="140" stroke="#d4a853" stroke-width="2" opacity="0.4" fill="none"/>
+  <circle cx="400" cy="480" r="80" fill="#c9a59d" opacity="0.35"/>
+  <text x="400" y="860" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#6b2d3a">SWEE2+</text>
+</svg>

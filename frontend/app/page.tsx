@@ -61,12 +61,12 @@ export default function Home() {
 							>
 								Home
 							</a>
-							<a
-								href="#products"
+							<Link
+								href="/products"
 								className="text-[var(--foreground)] hover:text-[var(--accent-burgundy)] transition-colors"
 							>
 								Products
-							</a>
+							</Link>
 							<a
 								href="#about"
 								className="text-[var(--foreground)] hover:text-[var(--accent-burgundy)] transition-colors"
@@ -95,15 +95,6 @@ export default function Home() {
 				</div>
 
 				<div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center">
-					<div
-						className="animate-fade-in-up opacity-0"
-						style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
-					>
-						<span className="inline-block px-4 py-2 bg-[var(--accent-cream)] rounded-full text-sm font-medium text-[var(--accent-burgundy)] mb-6 tracking-widest uppercase">
-							Coming in 2026
-						</span>
-					</div>
-
 					<Image
 						src="/logo.png"
 						alt="Swee-2+ Logo"
@@ -132,12 +123,12 @@ export default function Home() {
 						className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up opacity-0"
 						style={{ animationDelay: "1s", animationFillMode: "forwards" }}
 					>
-						<a
-							href="#products"
+						<Link
+							href="/products"
 							className="bg-[var(--accent-burgundy)] text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-[#8a3d4d] transition-all hover:scale-105 shadow-lg"
 						>
 							Explore Products
-						</a>
+						</Link>
 						<a
 							href="#about"
 							className="border-2 border-[var(--accent-burgundy)] text-[var(--accent-burgundy)] px-10 py-4 rounded-full text-lg font-medium hover:bg-[var(--accent-burgundy)] hover:text-white transition-all"
@@ -199,9 +190,12 @@ export default function Home() {
 								</h3>
 								<p className="text-gray-600">{product.description}</p>
 								<div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-									<span className="text-[var(--accent-gold)] font-medium text-sm tracking-wide">
-										Coming Soon →
-									</span>
+									<Link
+										href="/products"
+										className="text-[var(--accent-gold)] font-medium text-sm tracking-wide"
+									>
+										View catalog →
+									</Link>
 								</div>
 							</div>
 						))}
@@ -218,12 +212,18 @@ export default function Home() {
 
 				<div className="max-w-4xl mx-auto text-center relative z-10">
 					<h2 className="font-[family-name:var(--font-cormorant)] text-5xl md:text-6xl font-bold text-white mb-6">
-						Launching in 2026
+						Discover Swee-2+
 					</h2>
 					<p className="text-[var(--accent-blush)] text-xl mb-12 max-w-2xl mx-auto">
-						Be the first to experience our revolutionary cosmetics collection.
-						Sign up to receive exclusive updates and early access.
+						Explore our full range of premium skincare, hair care, and personal
+						care—crafted for everyday confidence.
 					</p>
+					<Link
+						href="/products"
+						className="inline-block bg-white text-[var(--accent-burgundy)] px-10 py-4 rounded-full text-lg font-medium hover:bg-[var(--accent-cream)] transition-all"
+					>
+						Shop products
+					</Link>
 				</div>
 			</section>
 
@@ -271,9 +271,9 @@ export default function Home() {
 								<div className="w-px h-12 bg-[var(--accent-rose)]"></div>
 								<div className="text-center">
 									<div className="font-[family-name:var(--font-cormorant)] text-4xl font-bold text-[var(--accent-burgundy)]">
-										2026
+										IN
 									</div>
-									<div className="text-sm text-gray-500">Launch Year</div>
+									<div className="text-sm text-gray-500">Made in India</div>
 								</div>
 							</div>
 						</div>
@@ -373,8 +373,8 @@ export default function Home() {
 								</div>
 							</div>
 							<p className="text-gray-400 leading-relaxed">
-								Elevating beauty standards with premium cosmetics. Launching in
-								2026 with a complete range of skincare and makeup products.
+								Elevating beauty standards with premium cosmetics—a complete range
+								of skincare and makeup products.
 							</p>
 						</div>
 
@@ -393,12 +393,12 @@ export default function Home() {
 									</a>
 								</li>
 								<li>
-									<a
-										href="#products"
+									<Link
+										href="/products"
 										className="text-gray-400 hover:text-[var(--accent-gold)] transition-colors"
 									>
 										Products
-									</a>
+									</Link>
 								</li>
 								<li>
 									<a
