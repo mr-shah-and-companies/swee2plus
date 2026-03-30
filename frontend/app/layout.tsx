@@ -22,6 +22,9 @@ export const metadata: Metadata = {
 		"Discover Swee-2+, a premium cosmetics brand by Mr SHAH and COMPANYES—a complete range of beauty and personal care products.",
 	keywords:
 		"cosmetics, beauty, skincare, makeup, Swee-2+, premium beauty, luxury cosmetics",
+	verification: {
+		google: "hSOtrR_Q0FoUM3qP08SbRg39eZ_gU_lTjundHenmmDw",
+	},
 };
 
 export default function RootLayout({
