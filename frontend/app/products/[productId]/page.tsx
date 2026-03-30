@@ -10,6 +10,7 @@ import {
 	resolveProductRoute,
 	type Product,
 } from "@/lib/products";
+import { getProductReviewJsonLd } from "@/lib/productReviews";
 import { getPackLabelBlock } from "@/lib/labelExtracts";
 import { getProductsSharingAssetFolder } from "@/lib/productAssets";
 import { getProductCopy, getProductDescriptionPlain } from "@/lib/productCopy";
@@ -217,6 +218,7 @@ function productJsonLd(product: Product, imageUrls: string[]) {
 			"@type": "Brand",
 			name: product.brandName,
 		},
+		...getProductReviewJsonLd(product),
 		offers,
 	};
 }
