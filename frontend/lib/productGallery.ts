@@ -3,6 +3,7 @@ import path from "node:path";
 import type { GallerySlide } from "@/lib/galleryTypes";
 import { resolveAssetFolder } from "@/lib/productAssets";
 import { getProductSlug, type Product } from "@/lib/products";
+import { absoluteUrl } from "@/lib/site";
 
 export type { GallerySlide };
 
@@ -89,4 +90,18 @@ export function getGallerySlides(product: Product): GallerySlide[] {
 /** First gallery image — for product cards and previews. */
 export function getProductThumbnail(product: Product): GallerySlide {
 	return getGallerySlides(product)[0];
+}
+
+/**
+ * Absolute raster image URLs for JSON-LD / Open Graph (skip SVG placeholders).
+ * Pass `slides` when you already called `getGallerySlides` to avoid a second disk read.
+ */
+export function getRasterGalleryAbsoluteUrls(
+	product: Product,
+	slides?: GallerySlide[],
+): string[] {
+	const list = slides ?? getGallerySlides(product);
+	return list
+		.filter((s) => !s.src.toLowerCase().endsWith(".svg"))
+		.map((s) => absoluteUrl(s.src));
 }

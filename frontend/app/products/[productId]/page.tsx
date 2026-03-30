@@ -13,8 +13,11 @@ import {
 import { getPackLabelBlock } from "@/lib/labelExtracts";
 import { getProductsSharingAssetFolder } from "@/lib/productAssets";
 import { getProductCopy, getProductDescriptionPlain } from "@/lib/productCopy";
-import { getGallerySlides } from "@/lib/productGallery";
-import { getSiteUrl } from "@/lib/site";
+import {
+	getGallerySlides,
+	getRasterGalleryAbsoluteUrls,
+} from "@/lib/productGallery";
+import { absoluteUrl, getSiteUrl } from "@/lib/site";
 import { ProductImageCarousel } from "./ProductImageCarousel";
 
 type Props = {
@@ -40,6 +43,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			? `${longDesc.slice(0, 152).trim()}… · MRP ₹${product.mrp} · GTIN ${product.upin13}`
 			: `${longDesc} MRP ₹${product.mrp}. GTIN ${product.upin13}.`;
 
+	const slides = getGallerySlides(product);
+	const rasterUrls = getRasterGalleryAbsoluteUrls(product, slides);
+	const ogImage = rasterUrls[0] ?? absoluteUrl("/logo.png");
+	const ogAlt =
+		rasterUrls.length > 0
+			? (slides.find((s) => !s.src.toLowerCase().endsWith(".svg"))?.alt ??
+				slides[0]?.alt)
+			: "Swee-2+ premium cosmetics";
+
 	return {
 		title,
 		description,
@@ -62,11 +74,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			url: path,
 			siteName: "Swee-2+",
 			type: "website",
+			...(ogImage ? { images: [{ url: ogImage, alt: ogAlt }] } : {}),
 		},
 		twitter: {
 			card: "summary_large_image",
 			title,
 			description,
+			...(ogImage ? { images: [ogImage] } : {}),
 		},
 		robots: {
 			index: true,
@@ -132,14 +146,70 @@ function DetailRow({
 	);
 }
 
-function productJsonLd(product: Product) {
+function productJsonLd(product: Product, imageUrls: string[]) {
 	const slug = getProductSlug(product);
 	const productUrl = `${getSiteUrl()}/products/${slug}`;
+	/** Prefer pack photos; logo avoids “Missing field image” if assets are missing on the host. */
+	const images =
+		imageUrls.length > 0 ? imageUrls : [absoluteUrl("/logo.png")];
+	const refundUrl = `${getSiteUrl()}/refund-policy`;
+	const offers: Record<string, unknown> = {
+		"@type": "Offer",
+		url: productUrl,
+		priceCurrency: "INR",
+		price: String(product.mrp),
+		availability: "https://schema.org/InStock",
+		itemCondition: "https://schema.org/NewCondition",
+		seller: {
+			"@type": "Organization",
+			name: product.brandName,
+		},
+		shippingDetails: [
+			{
+				"@type": "OfferShippingDetails",
+				shippingRate: {
+					"@type": "MonetaryAmount",
+					value: "0",
+					currency: "INR",
+				},
+				shippingDestination: {
+					"@type": "DefinedRegion",
+					addressCountry: "IN",
+				},
+				deliveryTime: {
+					"@type": "ShippingDeliveryTime",
+					handlingTime: {
+						"@type": "QuantitativeValue",
+						minValue: 1,
+						maxValue: 3,
+						unitCode: "DAY",
+					},
+					transitTime: {
+						"@type": "QuantitativeValue",
+						minValue: 2,
+						maxValue: 10,
+						unitCode: "DAY",
+					},
+				},
+			},
+		],
+		hasMerchantReturnPolicy: {
+			"@type": "MerchantReturnPolicy",
+			url: refundUrl,
+			applicableCountry: "IN",
+			returnPolicyCategory:
+				"https://schema.org/MerchantReturnFiniteReturnWindow",
+			merchantReturnDays: 7,
+			returnMethod: "https://schema.org/ReturnByMail",
+			returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+		},
+	};
 	return {
 		"@context": "https://schema.org",
 		"@type": "Product",
 		name: product.productName,
 		description: getProductDescriptionPlain(product),
+		image: images.length === 1 ? images[0] : images,
 		sku: slug,
 		productID: product.upin13,
 		gtin13: product.upin13,
@@ -147,14 +217,7 @@ function productJsonLd(product: Product) {
 			"@type": "Brand",
 			name: product.brandName,
 		},
-		offers: {
-			"@type": "Offer",
-			url: productUrl,
-			priceCurrency: "INR",
-			price: String(product.mrp),
-			availability: "https://schema.org/InStock",
-			itemCondition: "https://schema.org/NewCondition",
-		},
+		offers,
 	};
 }
 
@@ -174,9 +237,10 @@ export default async function ProductDetailPage({ params }: Props) {
 	}
 	const product = resolved.product;
 
-	const jsonLd = productJsonLd(product);
-	const copy = getProductCopy(product);
 	const slides = getGallerySlides(product);
+	const imageUrls = getRasterGalleryAbsoluteUrls(product, slides);
+	const jsonLd = productJsonLd(product, imageUrls);
+	const copy = getProductCopy(product);
 	const { intro: packLabelIntro, sections: labelSections } =
 		getPackLabelBlock(product);
 	const sizeSiblings = getProductsSharingAssetFolder(product);

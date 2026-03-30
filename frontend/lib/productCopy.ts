@@ -5,6 +5,11 @@ export type ProductCopy = {
 	highlights: string[];
 };
 
+/** Unique per SKU (shared barcode across colour variants is intentional). */
+function traceabilityLine(product: Product): string {
+	return `${product.specification} · GTIN ${product.upin13}`;
+}
+
 function hairSerumCopy(product: Product, name: string): ProductCopy {
 	const extra =
 		name.includes("argan") && name.includes("oil")
@@ -27,7 +32,7 @@ function hairSerumCopy(product: Product, name: string): ProductCopy {
 			"Lightweight serum texture for mid-lengths & ends",
 			"Helps boost shine and manageability",
 			`${product.specification} pack size for regular use`,
-			"From SWEE2+ personal care range",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -35,6 +40,9 @@ function hairSerumCopy(product: Product, name: string): ProductCopy {
 function faceWashCopy(product: Product, name: string): ProductCopy {
 	let focus =
 		"This face wash is designed for daily cleansing—removing excess oil, sweat, and buildup while leaving skin feeling fresh.";
+	if (name.includes("rice"))
+		focus =
+			"Rice extract–inspired cleansing helps lift dullness and leaves skin feeling soft—ideal for daily brightening routines.";
 	if (name.includes("vitamin c"))
 		focus =
 			"Vitamin C is widely used in skincare routines to support a brighter-looking complexion and antioxidant care alongside cleansing.";
@@ -61,7 +69,7 @@ function faceWashCopy(product: Product, name: string): ProductCopy {
 			"Daily facial cleanser",
 			`${product.specification} convenient size`,
 			"Rinses clean—pair with moisturizer after use",
-			"SWEE2+ face care",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -92,7 +100,7 @@ function faceSerumCopy(product: Product, name: string): ProductCopy {
 			"Targeted serum step after cleansing",
 			"Small format—easy to layer under moisturizer",
 			"Patch test recommended for sensitive skin",
-			"SWEE2+ serum range",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -118,7 +126,7 @@ function talcCopy(product: Product, name: string): ProductCopy {
 			"Absorbent powder texture",
 			`${product.specification} size`,
 			"Comfortable, fresh feel on skin",
-			"SWEE2+ body care",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -134,7 +142,7 @@ function sunblockCopy(product: Product): ProductCopy {
 			"SPF 50++ sun protection (use as directed)",
 			`${product.specification} pack`,
 			"Apply before sun; reapply regularly",
-			"SWEE2+ sun care",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -156,7 +164,7 @@ function bodyWashCopy(product: Product, name: string): ProductCopy {
 			"Daily body cleansing",
 			"Rich lather, easy rinse",
 			`${product.specification} family-friendly size`,
-			"SWEE2+ bath & body",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -178,7 +186,7 @@ function rollOnCopy(product: Product, name: string): ProductCopy {
 			"Roll-on format—easy application",
 			"Helps you feel fresh through the day",
 			`${product.specification} pack`,
-			"SWEE2+ personal care",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -191,8 +199,9 @@ function defaultCopy(product: Product): ProductCopy {
 		],
 		highlights: [
 			`Pack size: ${product.specification}`,
-			"SWEE2+ quality",
+			`${product.brandName} ${product.productName}`,
 			"Follow on-pack directions",
+			traceabilityLine(product),
 		],
 	};
 }
@@ -228,7 +237,7 @@ export function getProductCopy(product: Product): ProductCopy {
 				"Hair removal cream format",
 				`Pack: ${product.specification}`,
 				"Follow timing & safety on pack",
-				"SWEE2+ hair removal",
+				traceabilityLine(product),
 			],
 		};
 

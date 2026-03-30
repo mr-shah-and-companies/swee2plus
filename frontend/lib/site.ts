@@ -25,3 +25,14 @@ export function getSiteUrl(): string {
 	}
 	return "http://localhost:3000";
 }
+
+/** Absolute URL for JSON-LD, Open Graph, and sitemap `<loc>` consistency. */
+export function absoluteUrl(pathOrUrl: string): string {
+	const raw = pathOrUrl.trim();
+	if (/^https?:\/\//i.test(raw)) {
+		return raw;
+	}
+	const base = getSiteUrl();
+	const path = raw.startsWith("/") ? raw : `/${raw}`;
+	return `${base}${path}`;
+}
